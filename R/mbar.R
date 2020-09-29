@@ -17,7 +17,7 @@
 #' @importFrom magrittr %>%
 #' @export
 mbar <- function(.df, .cap = NULL) {
-  .p <- .df %>% ggplot2::ggplot(ggplot2::aes(x = forcats::fct_reorder(labs, value, .desc = FALSE), y = value, ymax = 1)) +
+  .p <- .df %>% ggplot2::ggplot(ggplot2::aes(x = labs, y = value, ymax = 1)) +
     ggplot2::geom_col(position = "stack", fill = "#003A63", width = 0.43, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) +
     ggplot2::scale_y_continuous(labels = NULL, expand = ggplot2::expand_scale(add = c(0, 0.06), mult = c(0, 0))) +
     ggplot2::scale_x_discrete(expand = ggplot2::expand_scale(add = c(0.1, 0.1))) +

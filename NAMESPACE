@@ -2,6 +2,7 @@
 
 export(mbar)
 export(multiple_response_data_prep)
+export(single_response_data_prep)
 export(single_response_respondent_level)
 export(single_response_respondent_level_ord)
 export(ts_agreement_plot)

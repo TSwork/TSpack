@@ -36,7 +36,12 @@ multiple_response_data_prep <- function (.df, .dd, .x, .full=TRUE) {
       dplyr::summarise_at(vars(-c("Company2")), mean, na.rm = TRUE) %>%
       tidyr::gather(key = "key", value = "value", -n)
 
-    .temp <- dplyr::left_join(labs, .temp, by = c(qvar = "key"))
+    .temp <- dplyr::left_join(labs, .temp, by = c(qvar = "key")) %>%
+      dplyr::select(-qvar)
+    if ( is.ordered(.temp$labs) != TRUE ){
+      .temp <- .temp %>% dplyr::mutate(labs=forcats::fct_reorder(labs, value))
+    }
+    .temp
     return(.temp)
   } else {
 
@@ -48,7 +53,11 @@ multiple_response_data_prep <- function (.df, .dd, .x, .full=TRUE) {
       dplyr::summarise_all(~mean(., na.rm = TRUE)) %>%
       tidyr::gather(key = "key", value = "value", -n)
 
-    .temp2 <- dplyr::left_join(labs, .temp, by = c(qvar = "key"))
+    .temp2 <- dplyr::left_join(labs, .temp, by = c(qvar = "key"))  %>%
+      dplyr::select(-qvar)
+    if ( is.ordered(.temp2$labs) != TRUE ){
+      .temp2 <- .temp2 %>% dplyr::mutate(labs=forcats::fct_reorder(labs, value))
+    }
     .temp2
   }
 }
