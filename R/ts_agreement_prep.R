@@ -14,7 +14,7 @@
 #' @examples
 #' df %>% newfun(dd, Q8)
 #'
-#'
+#' @export
 ts_agreement_prep <- function (.df, .dd, .x, .l){
   myround <- function(x) trunc(x+0.51)
   v <- rlang::enquo(.x)

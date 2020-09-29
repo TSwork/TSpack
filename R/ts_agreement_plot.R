@@ -14,7 +14,7 @@
 #' ts_agreement_prep(df, dd, Q27, c("Agree", "Neither agree nor disagree", "Disagree")) %>%
 #' ts_agreement_plot()
 #'
-#'
+#' @export
 ts_agreement_plot <- function (.df, .cap = NULL){
   title <- .df %>% dplyr::select(title) %>% dplyr::pull()
   .p <- .df %>%

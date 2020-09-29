@@ -12,7 +12,7 @@
 #' @examples
 #' df %>% newfunfctx(dd, Q11)
 #'
-#'
+#' @export
 single_response_respondent_level_ord <- function(.df, .dd, .x){
   x <- enquo(.x)
   qx <- quo_text(x)

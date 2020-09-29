@@ -12,7 +12,7 @@
 #' @examples
 #' df %>% newfun(dd, Q8)
 #'
-#'
+#' @export
 single_response_respondent_level <- function(.df, .dd, .x){
   x <- enquo(.x)
   qx <- quo_text(x)

@@ -14,7 +14,7 @@
 #' @examples
 #' df %>% newfun(dd, Q8)
 #'
-#'
+#' @export
 multiple_response_data_prep <- function (.df, .dd, .x, .full=TRUE) {
   v <- rlang::enquo(.x)
   q <- rlang::quo_name(v)

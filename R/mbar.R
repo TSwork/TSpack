@@ -14,7 +14,7 @@
 #' multiple_response_data_prep(dd, Q25, .full = F) %>%
 #' mbar(.cap="2020 Poll, n=")
 #'
-#'
+#' @export
 mbar <- function(.df, .cap = NULL) {
   .p <- .df %>% ggplot2::ggplot(ggplot2::aes(x = forcats::fct_reorder(labs, value, .desc = FALSE), y = value, ymax = 1)) +
     ggplot2::geom_col(position = "stack", fill = "#003A63", width = 0.43, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) +
