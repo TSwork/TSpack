@@ -23,6 +23,6 @@ A bar chart
 This is an NACD function: Should you experience difficulties, see Ted Sikora
 }
 \examples{
-df \%>\% newfunfctx(dd, Q11)
+df \%>\% single_response_respondent_level_ord(dd, Q11)
 
 }

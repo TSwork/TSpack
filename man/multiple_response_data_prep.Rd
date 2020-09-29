@@ -26,6 +26,6 @@ A tibble
 This is an NACD function: Should you experience difficulties, see Ted Sikora
 }
 \examples{
-df \%>\% newfun(dd, Q8)
+df \%>\% multiple_response_data_prep(dd, Q25, .full = F)
 
 }
