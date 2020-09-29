@@ -44,7 +44,7 @@ multiple_response_data_prep <- function (.df, .dd, .x, .full=TRUE) {
       dplyr::select(c(stringr::str_subset( .dd$name, str_c(q,"_","[0-9]*$")))) %>%
       dplyr::filter_at(dplyr::vars(dplyr::contains(q)), dplyr::any_vars(!is.na(.))) %>%
       dplyr::mutate_all(~as.integer(!is.na(.)))  %>%
-      add_count() %>%
+      dplyr::add_count() %>%
       dplyr::summarise_all(~mean(., na.rm = TRUE)) %>%
       tidyr::gather(key = "key", value = "value", -n)
 

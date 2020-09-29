@@ -25,11 +25,11 @@ single_response_respondent_level_ord <- function(.df, .dd, .x){
     dplyr::filter(!is.na(!!x)) %>%
     dplyr::pull(!!x) %>%
     forcats::fct_count(sort = T, prop = T) %>%
-    add_tally(wt = n)
+    dplyr::add_tally(wt = n)
 
   ggplot2::ggplot(tempdf, ggplot2::aes(x=f, y=p, ymax = 1)) +
     ggplot2::geom_col(width = 0.6, fill = "#003A63") +
-    ggplot2::geom_text(aes(label = scales::percent(p, accuracy = 0.1)), fontface = "bold", color = "#000000", size = 3.5, hjust = 0) +
+    ggplot2::geom_text(ggplot2::aes(label = scales::percent(p, accuracy = 0.1)), fontface = "bold", color = "#000000", size = 3.5, hjust = 0) +
     ggplot2::coord_flip() +
     ggplot2::scale_y_continuous(labels = NULL, expand = ggplot2::expand_scale(add = c(0, 0), mult = c(0, 0.06))) +
     ggplot2::scale_x_discrete(labels = function(f) stringr::str_wrap(f, 30), expand = ggplot2::expand_scale(add = c(0.1, 0.1))) +

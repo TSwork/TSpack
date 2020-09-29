@@ -19,7 +19,7 @@
 ts_agreement_plot <- function (.df, .cap = NULL){
   title <- .df %>% dplyr::select(title) %>% dplyr::pull()
   .p <- .df %>%
-    ggplot2::ggplot(ggplot2::aes(x = forcats::fct_reorder(labs,-temp3), y = Percent, fill = value)) +
+    ggplot2::ggplot(ggplot2::aes(x = labs, y = Percent, fill = value)) +
     ggplot2::geom_col(position = ggplot2::position_fill(), width = 0.5) +
     ggplot2::coord_flip() +
     ggplot2::scale_y_continuous(labels = NULL, expand = ggplot2::expand_scale(add = c(0, 0), mult = c(0, 0))) +
