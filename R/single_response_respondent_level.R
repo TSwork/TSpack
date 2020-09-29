@@ -27,7 +27,7 @@ single_response_respondent_level <- function(.df, .dd, .x){
     forcats::fct_count(sort = T, prop = T) %>%
     dplyr::add_tally(wt = n)
 
-  ggplot2::ggplot(tempdf, aes(x=fct_reorder(f, p), y=p, ymax = 1)) +
+  ggplot2::ggplot(tempdf, ggplot2::aes(x=fct_reorder(f, p), y=p, ymax = 1)) +
     ggplot2::geom_col(width = 0.6, fill = "#003A63") + #"#21578e"
     ggplot2::geom_text(aes(label = scales::percent(p, accuracy = 0.1)), fontface = "bold", color = "#000000", size = 3.5, hjust = 0) +
     ggplot2::coord_flip() +
