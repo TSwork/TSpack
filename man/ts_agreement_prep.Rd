@@ -16,7 +16,7 @@ ts_agreement_prep(.df, .dd, .x, .l)
 \item{.l}{The three level names}
 }
 \value{
-A graph
+A tibble
 }
 \description{
 \code{ts_agreement_prep} returns a tibble of a given multiple level agreement question,
@@ -26,6 +26,6 @@ A graph
 This is an NACD function: Should you experience difficulties, see Ted Sikora
 }
 \examples{
-df \%>\% newfun(dd, Q8)
+ts_agreement_prep(df, dd, Q13, c("Agree", "Neither agree nor disagree", "Disagree"))
 
 }

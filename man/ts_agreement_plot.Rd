@@ -12,8 +12,6 @@ ts_agreement_plot(.df, .cap = NULL)
 \item{.cap}{Text for a caption (optional)}
 }
 \value{
-A bar graph
-
 A graph
 }
 \description{

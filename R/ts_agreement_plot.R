@@ -7,7 +7,6 @@
 #'
 #' @param .df A dataframe, piped from \code{ts_agreement_prep}
 #' @param .cap Text for a caption (optional)
-#' @return A bar graph
 #' @return A graph
 #'
 #' @examples
