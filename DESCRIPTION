@@ -18,5 +18,7 @@ Imports:
     dplyr,
     tidyr,
     ggplot2,
-    readxl
+    readxl,
+    stringr,
+    forcats
 RoxygenNote: 6.1.1

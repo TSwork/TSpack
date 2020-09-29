@@ -14,6 +14,7 @@
 #' multiple_response_data_prep(dd, Q25, .full = F) %>%
 #' mbar(.cap="2020 Poll, n=")
 #'
+#' @importFrom magrittr %>%
 #' @export
 mbar <- function(.df, .cap = NULL) {
   .p <- .df %>% ggplot2::ggplot(ggplot2::aes(x = forcats::fct_reorder(labs, value, .desc = FALSE), y = value, ymax = 1)) +

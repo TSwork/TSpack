@@ -25,5 +25,4 @@ This is an NACD function: Should you experience difficulties, see Ted Sikora
 \examples{
 df \%>\% newfunfctx(dd, Q11)
 
-
 }

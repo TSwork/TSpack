@@ -27,5 +27,4 @@ This is an NACD function: Should you experience difficulties, see Ted Sikora
 ts_agreement_prep(df, dd, Q27, c("Agree", "Neither agree nor disagree", "Disagree")) \%>\%
 ts_agreement_plot()
 
-
 }

@@ -12,8 +12,11 @@
 #' @return A tibble
 #'
 #' @examples
-#' df %>% newfun(dd, Q8)
+#' df %>% multiple_response_data_prep(dd, Q25, .full = F)
 #'
+#' @importFrom magrittr %>%
+#' @importFrom stringr str_subset
+#' @importFrom stringr str_c
 #' @export
 multiple_response_data_prep <- function (.df, .dd, .x, .full=TRUE) {
   v <- rlang::enquo(.x)
@@ -26,10 +29,10 @@ multiple_response_data_prep <- function (.df, .dd, .x, .full=TRUE) {
       dplyr::select(c(stringr::str_subset( .dd$name, str_c(q,"_","[0-9]*$")), "Company2")) %>%
       dplyr::filter_at(dplyr::vars(dplyr::contains(q)), dplyr::any_vars(!is.na(.))) %>%
       dplyr::mutate_at(vars(-c("Company2")), ~as.integer(!is.na(.))) %>%
-      group_by(Company2)  %>%
+      dplyr::group_by(Company2)  %>%
       dplyr::summarise_all( ~ifelse(mean(., na.rm = TRUE) >= 0.5, 1, 0) )  %>%
-      ungroup() %>%
-      add_count() %>%
+      dplyr::ungroup() %>%
+      dplyr::add_count() %>%
       dplyr::summarise_at(vars(-c("Company2")), mean, na.rm = TRUE) %>%
       tidyr::gather(key = "key", value = "value", -n)
 

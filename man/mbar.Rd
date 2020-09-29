@@ -26,5 +26,4 @@ df \%>\%
 multiple_response_data_prep(dd, Q25, .full = F) \%>\%
 mbar(.cap="2020 Poll, n=")
 
-
 }
