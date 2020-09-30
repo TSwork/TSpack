@@ -16,7 +16,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @export
-ts_agr_prep <- function (.df, .dd, .x, .l){
+ted_agr_prep <- function (.df, .dd, .x, .l){
   v <- rlang::enquo(.x)
   q <- rlang::quo_name(v)
   labs <- tibble::tibble(title = .dd[.dd$qnames == q, c("title")][[1]], labs = .dd[.dd$qnames == q, c("value")][[1]], qvar = .dd[.dd$qnames == q, c("name")][[1]])
