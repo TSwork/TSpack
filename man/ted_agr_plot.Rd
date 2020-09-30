@@ -7,7 +7,7 @@
 ted_agr_plot(.df, .cap = NULL)
 }
 \arguments{
-\item{.df}{A dataframe, piped from \code{ted_agr_prep}}
+\item{.df}{A dataframe, piped from \code{\link{ted_agr_prep}}}
 
 \item{.cap}{Text for a caption (optional)}
 }

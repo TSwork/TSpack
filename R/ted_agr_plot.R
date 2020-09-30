@@ -5,7 +5,7 @@
 #'
 #' This is an NACD function: Should you experience difficulties, see Ted Sikora
 #'
-#' @param .df A dataframe, piped from \code{ted_agr_prep}
+#' @param .df A dataframe, piped from \code{\link{ted_agr_prep}}
 #' @param .cap Text for a caption (optional)
 #' @return A graph
 #'

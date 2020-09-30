@@ -26,6 +26,6 @@ A tibble
 This is an NACD function: Should you experience difficulties, see Ted Sikora
 }
 \examples{
-ts_agr_prep(df, dd, Q13, c("Agree", "Neither agree nor disagree", "Disagree"))
+ted_agr_prep(df, dd, Q13, c("Agree", "Neither agree nor disagree", "Disagree"))
 
 }
