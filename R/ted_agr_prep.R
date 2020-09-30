@@ -21,31 +21,31 @@ ted_agr_prep <- function (.df, .dd, .x, .l){
   q <- rlang::quo_name(v)
   labs <- tibble::tibble(title = .dd[.dd$qnames == q, c("title")][[1]], labs = .dd[.dd$qnames == q, c("value")][[1]], qvar = .dd[.dd$qnames == q, c("name")][[1]])
   if (!(missing(.l))) {
-    .temp <- .df %>%
-      dplyr::select(dplyr::contains(q, ignore.case = FALSE)) %>%
-      tidyr::gather() %>%
-      dplyr::mutate(value = factor(value, c("Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree"))) %>%
-      dplyr::mutate(value = forcats::fct_collapse(value,
-                                                  Agree = c("Strongly agree", "Agree"),
-                                                  `Neither agree nor disagree` =  c("Neither agree nor disagree"),
-                                                  Disagree = c("Disagree", "Strongly disagree")))  %>%
-      dplyr::filter(!is.na(value)) %>%
-      dplyr::add_count(key, value) %>%
-      dplyr::distinct() %>%
-      dplyr::filter(!is.na(value)) %>%
-      dplyr::group_by(key) %>%
-      dplyr::mutate(tot = sum(n), Percent = n/tot) %>%
-      dplyr::select(key, value, tot,  Percent) %>%
-      dplyr::mutate_at(dplyr::vars(value),  ~factor(., levels = .l, ordered = TRUE)) %>%
-      dplyr::mutate(temp = as.integer(value), temp2 = temp*Percent) %>%
-      {dplyr::left_join(labs, ., by = c(qvar = "key"))} %>%
-      dplyr::group_by(labs) %>%
-      dplyr::mutate(temp3 = mean(temp2)) %>%
-      dplyr::ungroup() %>%
-      dplyr::mutate(labs = forcats::fct_reorder(labs,-temp3)) %>%
-      dplyr::arrange(labs,value) %>%
-      dplyr::select(-dplyr::contains("temp"))
-
+    # .temp <- .df %>%
+    #   dplyr::select(dplyr::contains(q, ignore.case = FALSE)) %>%
+    #   tidyr::gather() %>%
+    #   dplyr::mutate(value = factor(value, c("Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree"))) %>%
+    #   dplyr::mutate(value = forcats::fct_collapse(value,
+    #                                               Agree = c("Strongly agree", "Agree"),
+    #                                               `Neither agree nor disagree` =  c("Neither agree nor disagree"),
+    #                                               Disagree = c("Disagree", "Strongly disagree")))  %>%
+    #   dplyr::filter(!is.na(value)) %>%
+    #   dplyr::add_count(key, value) %>%
+    #   dplyr::distinct() %>%
+    #   dplyr::filter(!is.na(value)) %>%
+    #   dplyr::group_by(key) %>%
+    #   dplyr::mutate(tot = sum(n), Percent = n/tot) %>%
+    #   dplyr::select(key, value, tot,  Percent) %>%
+    #   dplyr::mutate_at(dplyr::vars(value),  ~factor(., levels = .l, ordered = TRUE)) %>%
+    #   dplyr::mutate(temp = as.integer(value), temp2 = temp*Percent) %>%
+    #   {dplyr::left_join(labs, ., by = c(qvar = "key"))} %>%
+    #   dplyr::group_by(labs) %>%
+    #   dplyr::mutate(temp3 = mean(temp2)) %>%
+    #   dplyr::ungroup() %>%
+    #   dplyr::mutate(labs = forcats::fct_reorder(labs,-temp3)) %>%
+    #   dplyr::arrange(labs,value) %>%
+    #   dplyr::select(-dplyr::contains("temp"))
+.temp <- tagr(.df, .dd, q, .l, labs)
   }
   .temp
 }

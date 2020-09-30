@@ -16,18 +16,8 @@
 #' @export
 ted_sr_data_prep <- function(.df, .dd, .x){
   x <-  rlang::enquo(.x)
-  qx <- rlang::quo_text(x)
 
-  tmptitle <- .dd %>% dplyr::filter(qnames == qx) %>% dplyr::pull(title)
-  tmptitle <- tmptitle[[1]]
-
-  .temp <- .df %>%
-    dplyr::filter(!is.na(!!x)) %>%
-    dplyr::pull(!!x) %>%
-    forcats::fct_count(sort = T, prop = T) %>%
-    dplyr::add_tally(wt = n) %>%
-    dplyr::mutate(title=tmptitle) %>%
-    dplyr::select(title, labs="f",value="p", dplyr::everything())
+  .temp <- tsr(.df, .dd, x)
 
   if(!is.ordered(.temp$labs) ){
     .temp <- .temp %>% dplyr::mutate(labs=forcats::fct_reorder(labs, value))

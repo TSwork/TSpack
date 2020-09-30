@@ -21,20 +21,10 @@
 ted_mr_data_prep <- function (.df, .dd, .x, .full=TRUE) {
   v <- rlang::enquo(.x)
   q <- rlang::quo_name(v)
-  labs <- tibble::tibble(title = .dd[.dd$name %in% str_subset( .dd$name, str_c(q,"_","[0-9]*$")), c("title")][[1]],
-                         labs =  .dd[.dd$name %in% str_subset( .dd$name, str_c(q,"_","[0-9]*$")), c("value")][[1]],
-                         qvar =  .dd[.dd$name %in% str_subset( .dd$name, str_c(q,"_","[0-9]*$")), c("name")][[1]])
-  if (.full == TRUE) {
-    .temp <- .df %>%
-      dplyr::select(c(stringr::str_subset( .dd$name, str_c(q,"_","[0-9]*$")), "Company2")) %>%
-      dplyr::filter_at(dplyr::vars(dplyr::contains(q)), dplyr::any_vars(!is.na(.))) %>%
-      dplyr::mutate_at(vars(-c("Company2")), ~as.integer(!is.na(.))) %>%
-      dplyr::group_by(Company2)  %>%
-      dplyr::summarise_all( ~ifelse(mean(., na.rm = TRUE) >= 0.5, 1, 0) )  %>%
-      dplyr::ungroup() %>%
-      dplyr::add_count() %>%
-      dplyr::summarise_at(vars(-c("Company2")), mean, na.rm = TRUE) %>%
-      tidyr::gather(key = "key", value = "value", -n)
+  labs <- tmrlabs(.dd, q)
+
+   if (.full == TRUE) {
+    .temp <- .df %>% tmr1(.dd, q)
 
     .temp <- dplyr::left_join(labs, .temp, by = c(qvar = "key")) %>%
       dplyr::select(-qvar)
@@ -45,13 +35,7 @@ ted_mr_data_prep <- function (.df, .dd, .x, .full=TRUE) {
     return(.temp)
   } else {
 
-    .temp <- .df %>%
-      dplyr::select(c(stringr::str_subset( .dd$name, str_c(q,"_","[0-9]*$")))) %>%
-      dplyr::filter_at(dplyr::vars(dplyr::contains(q)), dplyr::any_vars(!is.na(.))) %>%
-      dplyr::mutate_all(~as.integer(!is.na(.)))  %>%
-      dplyr::add_count() %>%
-      dplyr::summarise_all(~mean(., na.rm = TRUE)) %>%
-      tidyr::gather(key = "key", value = "value", -n)
+    .temp <- .df %>% tmr2(.dd, q)
 
     .temp2 <- dplyr::left_join(labs, .temp, by = c(qvar = "key"))  %>%
       dplyr::select(-qvar)
