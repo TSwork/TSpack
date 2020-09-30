@@ -7,7 +7,8 @@
 ted_bar(.df, .cap = NULL)
 }
 \arguments{
-\item{.df}{A dataframe, piped from \code{ted_mr_data_prep}}
+\item{.df}{A dataframe, piped from \code{\link{ted_sr_data_prep}} or
+\code{\link{ted_mr_data_prep}}}
 
 \item{.cap}{Text for a caption (optional)}
 }
@@ -15,8 +16,8 @@ ted_bar(.df, .cap = NULL)
 A bar graph
 }
 \description{
-\code{ted_bar} Takes a table prepared by \code{ted_mr_data_prep},
-and outputs a bar graph.
+\code{ted_bar} Takes a table prepared by \code{\link{ted_sr_data_prep}} or
+\code{\link{ted_mr_data_prep}}, and outputs a bar graph.
 }
 \details{
 This is an NACD function: Should you experience difficulties, see Ted Sikora
