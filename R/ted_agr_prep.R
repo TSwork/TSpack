@@ -12,7 +12,7 @@
 #' @return A tibble
 #'
 #' @examples
-#' ts_agr_prep(df, dd, Q13, c("Agree", "Neither agree nor disagree", "Disagree"))
+#' ted_agr_prep(df, dd, Q13, c("Agree", "Neither agree nor disagree", "Disagree"))
 #'
 #' @importFrom magrittr %>%
 #' @export
