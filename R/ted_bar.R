@@ -1,18 +1,18 @@
 #' Bar graph for multiple response questions
 #'
-#' \code{mbar} Takes a table prepared by \code{multiple_response_data_prep},
+#' \code{ted_bar} Takes a table prepared by \code{ted_mr_data_prep},
 #' and outputs a bar graph.
 #'
 #' This is an NACD function: Should you experience difficulties, see Ted Sikora
 #'
-#' @param .df A dataframe, piped from \code{multiple_response_data_prep}
+#' @param .df A dataframe, piped from \code{ted_mr_data_prep}
 #' @param .cap Text for a caption (optional)
 #' @return A bar graph
 #'
 #' @examples
 #' df %>%
-#' multiple_response_data_prep(dd, Q25, .full = F) %>%
-#' mbar(.cap="2020 Poll, n=")
+#' ted_mr_data_prep(dd, Q25, .full = F) %>%
+#' ted_bar(.cap="2020 Poll, n=")
 #'
 #' @importFrom magrittr %>%
 #' @export

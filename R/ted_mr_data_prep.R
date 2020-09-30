@@ -1,6 +1,6 @@
 #' Prepares data for multiple response questions
 #'
-#' \code{multiple_response_data_prep} returns a tibble of a given question,
+#' \code{ted_mr_data_prep} returns a tibble of a given question,
 #'     prepared for tables or graphs.
 #'
 #' This is an NACD function: Should you experience difficulties, see Ted Sikora
@@ -12,13 +12,13 @@
 #' @return A tibble
 #'
 #' @examples
-#' df %>% multiple_response_data_prep(dd, Q25, .full = F)
+#' df %>% ted_mr_data_prep(dd, Q25, .full = F)
 #'
 #' @importFrom magrittr %>%
 #' @importFrom stringr str_subset
 #' @importFrom stringr str_c
 #' @export
-multiple_response_data_prep <- function (.df, .dd, .x, .full=TRUE) {
+ted_mr_data_prep <- function (.df, .dd, .x, .full=TRUE) {
   v <- rlang::enquo(.x)
   q <- rlang::quo_name(v)
   labs <- tibble::tibble(title = .dd[.dd$name %in% str_subset( .dd$name, str_c(q,"_","[0-9]*$")), c("title")][[1]],

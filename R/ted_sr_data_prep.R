@@ -1,6 +1,6 @@
 #' Makes Graph of Single response questions
 #'
-#' \code{single_response_respondent_level} returns a bar graph of a given question.
+#' \code{ted_sr_data_prep} returns a bar graph of a given question.
 #'
 #' This is an NACD function: Should you experience difficulties, see Ted Sikora
 #'
@@ -10,11 +10,11 @@
 #' @return A tibble
 #'
 #' @examples
-#' df %>% single_response_data_prep(dd, Q8)
+#' df %>% ted_sr_data_prep(dd, Q8)
 #'
 #' @importFrom magrittr %>%
 #' @export
-single_response_data_prep <- function(.df, .dd, .x){
+ted_sr_data_prep <- function(.df, .dd, .x){
   x <-  rlang::enquo(.x)
   qx <- rlang::quo_text(x)
 

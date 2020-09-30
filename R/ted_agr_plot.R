@@ -1,17 +1,17 @@
 #' Creates graph for multiple item agreement questions
 #'
-#' \code{ts_agreement_plot} Given a tibble of a given multiple level agreement question,
+#' \code{ted_agr_plot} Given a tibble of a given multiple level agreement question,
 #'     creates graph.
 #'
 #' This is an NACD function: Should you experience difficulties, see Ted Sikora
 #'
-#' @param .df A dataframe, piped from \code{ts_agreement_prep}
+#' @param .df A dataframe, piped from \code{ted_agr_prep}
 #' @param .cap Text for a caption (optional)
 #' @return A graph
 #'
 #' @examples
-#' ts_agreement_prep(df, dd, Q27, c("Agree", "Neither agree nor disagree", "Disagree")) %>%
-#' ts_agreement_plot()
+#' ted_agr_prep(df, dd, Q27, c("Agree", "Neither agree nor disagree", "Disagree")) %>%
+#' ted_agr_plot()
 #'
 #' @importFrom magrittr %>%
 #' @export

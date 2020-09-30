@@ -1,6 +1,6 @@
 #' Prepares data for multiple item agreement questions
 #'
-#' \code{ts_agreement_prep} returns a tibble of a given multiple level agreement question,
+#' \code{ted_agr_prep} returns a tibble of a given multiple level agreement question,
 #'     prepared for tables or graphs.
 #'
 #' This is an NACD function: Should you experience difficulties, see Ted Sikora
@@ -12,11 +12,11 @@
 #' @return A tibble
 #'
 #' @examples
-#' ts_agreement_prep(df, dd, Q13, c("Agree", "Neither agree nor disagree", "Disagree"))
+#' ts_agr_prep(df, dd, Q13, c("Agree", "Neither agree nor disagree", "Disagree"))
 #'
 #' @importFrom magrittr %>%
 #' @export
-ts_agreement_prep <- function (.df, .dd, .x, .l){
+ts_agr_prep <- function (.df, .dd, .x, .l){
   v <- rlang::enquo(.x)
   q <- rlang::quo_name(v)
   labs <- tibble::tibble(title = .dd[.dd$qnames == q, c("title")][[1]], labs = .dd[.dd$qnames == q, c("value")][[1]], qvar = .dd[.dd$qnames == q, c("name")][[1]])
