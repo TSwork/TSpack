@@ -15,7 +15,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @export
-ted_agr_prep <- function (.df, .cap = NULL){
+ted_agr_plot <- function (.df, .cap = NULL){
   title <- .df %>% dplyr::select(title) %>% dplyr::pull()
   .p <- .df %>%
     ggplot2::ggplot(ggplot2::aes(x = labs, y = Percent, fill = value)) +
