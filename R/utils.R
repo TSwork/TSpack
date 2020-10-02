@@ -71,6 +71,52 @@ tagr <- function (.df, .dd, q, .l, labs) {
   dplyr::select(-dplyr::contains("temp"))
 }
 
+tyn <- function (.df, .dd, q, .l, labs) {
+.df %>%
+  dplyr::select(dplyr::contains(q, ignore.case = FALSE)) %>%
+  tidyr::gather() %>%
+  dplyr::add_count(key, value) %>%
+  dplyr::distinct() %>%
+  dplyr::filter(!is.na(value)) %>%
+  dplyr::group_by(key) %>%
+  dplyr::mutate(tot = sum(n), Percent = n/tot) %>%
+  dplyr::select(key, value, tot,  Percent) %>%
+  dplyr::mutate_at(dplyr::vars(value),  ~factor(., levels = .l, ordered = TRUE)) %>%
+  dplyr::mutate(temp = as.integer(value), temp2 = temp*Percent) %>%
+  {dplyr::left_join(labs, ., by = c(qvar = "key"))} %>%
+  dplyr::group_by(labs) %>%
+  dplyr::mutate(temp3 = mean(temp2)) %>%
+  dplyr::ungroup()
+}
+
+tynp <- function (.df, .cap) {
+.df %>%
+  ggplot2::ggplot(ggplot2::aes(x = forcats::fct_reorder(labs, temp3), y = Percent, fill = value)) +
+  ggplot2::geom_col(position = ggplot2::position_fill(), width = 0.5) +
+  ggplot2::coord_flip() +
+  ggplot2::scale_y_continuous(labels = NULL, expand = ggplot2::expand_scale(add = c(0, 0), mult = c(0, 0))) +
+  ggplot2::scale_x_discrete(labels = function(xvar) stringr::str_wrap(xvar, 60), expand = ggplot2::expand_scale(add = c(0.1, 0.1))) +
+  ggplot2::scale_fill_manual(values = c("#c15927", "#21578e"), guide = ggplot2::guide_legend(reverse = TRUE)) +
+  ggplot2::geom_text(ggplot2::aes(label = scales::number(Percent, scale = 100, accuracy = 1), y = Percent), fontface = "bold", color = "#ffffff", size = 3.5, position = ggplot2::position_fill(vjust = 0.5)) +
+  ggplot2::labs(x = NULL, y = NULL, title = stringr::str_wrap(.df$title[[1]], width = ifelse(stringr::str_length(.df$title[[1]] > 60), stringr::str_length(.df$title[[1]])/1.8, 60)), caption = ifelse(is.null(.cap), NA, .cap)) +
+  ggplot2::theme(plot.title    = ggplot2::element_text(hjust = 0.5, size = 10, margin = ggplot2::margin(0.05, 5, 0.5, 0, "cm"), face = "bold"),
+                 plot.subtitle = ggplot2::element_blank(),
+                 plot.caption  = ggplot2::element_text(size = ggplot2::rel(0.4)),
+                 plot.margin   = ggplot2::margin(0.5, 0, 0.25, 1, "cm"),
+
+                 legend.title  = ggplot2::element_blank(),
+                 legend.text   = ggplot2::element_text(size = ggplot2::rel(0.6)),
+                 legend.key    = ggplot2::element_rect(size = 0.5),
+                 legend.key.size = ggplot2::unit(0.3, "cm"),
+                 legend.margin = ggplot2::margin(0, 0, 0, 0, "cm"),
+                 legend.position = "top",
+
+                 axis.title  = ggplot2::element_blank(),
+                 axis.line   = ggplot2::element_blank(),
+                 axis.ticks  = ggplot2::element_blank(),
+                 axis.text.y = ggplot2::element_text(size = ggplot2::rel(0.75)))
+}
+
 tb <- function (.df, .cap) {
 .df %>% ggplot2::ggplot(ggplot2::aes(x = labs, y = value, ymax = 1)) +
   ggplot2::geom_col(position = "stack", fill = "#003A63", width = 0.43, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) +
