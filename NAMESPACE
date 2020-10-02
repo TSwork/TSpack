@@ -3,6 +3,8 @@
 export(ted_agr_plot)
 export(ted_agr_prep)
 export(ted_bar)
+export(ted_con_plot)
+export(ted_con_prep)
 export(ted_mr_data_prep)
 export(ted_sr_data_prep)
 export(ted_yn_plot)
