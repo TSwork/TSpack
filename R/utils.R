@@ -44,6 +44,45 @@ tmr2 <- function (.df, .dd, q) {
   tidyr::gather(key = "key", value = "value", -n)
 }
 
+tmrf1 <- function (.df, .dd, q) {
+  .temp <- .df %>%
+    dplyr::select(c(stringr::str_subset( .dd$name, str_c(q,"_","[0-9]*$")), "Company2", qf)) %>%
+    dplyr::filter_at(dplyr::vars(dplyr::contains(q)), dplyr::any_vars(!is.na(.))) %>%
+    dplyr::filter_at(dplyr::vars(qf), dplyr::any_vars(!is.na(.))) %>%
+    dplyr::mutate_at(vars(-c("Company2", qf)), ~as.integer(!is.na(.))) %>%
+    group_by(Company2)  %>%
+    dplyr::mutate_at(vars(-c("Company2",qf)), ~ifelse(mean(., na.rm = TRUE) >= 0.5, 1, 0) )  %>%
+    ungroup() %>%
+    distinct() %>%
+    add_count(!!f) %>%
+    group_by(!!f) %>%
+    dplyr::summarise_at(vars(-c("Company2")), mean, na.rm = TRUE)  %>%
+    tidyr::gather(key=key, value=value, -c(n, !!f))
+  .temp <- dplyr::left_join(labs, .temp, by = c(qvar = "key")) %>%
+    select(title, !!f, labs, value, n) %>%
+    arrange(!!f)
+  .temp
+}
+
+
+tmrf2 <- function (.df, .dd, q, qf, f) {
+  .df %>%
+    dplyr::select(      c(  stringr::str_subset( .dd$name, str_c(q,"_","[0-9]*$") ), qf  )) %>%
+    dplyr::filter_at(dplyr::vars(dplyr::contains(q)), dplyr::any_vars(!is.na(.))) %>%
+    dplyr::filter_at(dplyr::vars(qf), dplyr::any_vars(!is.na(.))) %>%
+    dplyr::mutate_at(vars(-c(qf)), ~as.integer(!is.na(.))) %>%    # dplyr::mutate_all(~as.integer(!is.na(.)))  %>%
+    add_count()  %>%
+    add_count(!!f) %>%
+    group_by(!!f) %>%
+    dplyr::summarise_all(~mean(., na.rm = TRUE)) %>%
+    tidyr::gather(key=key, value=value, -c(n, !!f))
+
+}
+
+
+
+
+
 tagr <- function (.df, .dd, q, .l, labs) {
 .df %>%
   dplyr::select(dplyr::contains(q, ignore.case = FALSE)) %>%
