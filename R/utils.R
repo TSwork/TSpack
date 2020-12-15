@@ -80,18 +80,18 @@ tmrf2 <- function (.df, .dd, q, qf, f) {
 }
 
 
-
+#test %>% select(Q9, labs, value) %>%  spread(key=Q9, value=value)
 
 
 tagr <- function (.df, .dd, q, .l, labs) {
 .df %>%
   dplyr::select(dplyr::contains(q, ignore.case = FALSE)) %>%
   tidyr::gather() %>%
-  dplyr::mutate(value = factor(value, c("Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree"))) %>%
+  dplyr::mutate(value = factor(value, c("Strongly agree", "Somewhat agree", "Neither agree nor disagree", "Somewhat disagree", "Strongly disagree"))) %>%
   dplyr::mutate(value = forcats::fct_collapse(value,
-                                              Agree = c("Strongly agree", "Agree"),
+                                              Agree = c("Strongly agree", "Somewhat agree"),
                                               `Neither agree nor disagree` =  c("Neither agree nor disagree"),
-                                              Disagree = c("Disagree", "Strongly disagree")))  %>%
+                                              Disagree = c("Somewhat disagree", "Strongly disagree")))  %>%
   dplyr::filter(!is.na(value)) %>%
   dplyr::add_count(key, value) %>%
   dplyr::distinct() %>%
